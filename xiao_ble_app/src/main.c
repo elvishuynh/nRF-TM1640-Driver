@@ -20,7 +20,7 @@ LOG_MODULE_REGISTER(tm1640_demo, LOG_LEVEL_DBG);
 #define SCROLL_MSG      "Hello World"
 
 /* strlen * stride gives total pixel width; start offscreen right, end offscreen left */
-#define SCROLL_START    TM1640_NUM_GRIDS
+#define SCROLL_START    TM1640_LOGICAL_COLUMNS
 #define SCROLL_END      (-(int)(sizeof(SCROLL_MSG) - 1) * 6)
 
 int main(void)

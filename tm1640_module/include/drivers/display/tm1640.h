@@ -19,6 +19,9 @@ extern "C" {
 /* TM1640 has 16 grids (segments) */
 #define TM1640_NUM_GRIDS      16
 
+/* Effective visible logical columns (17) */
+#define TM1640_LOGICAL_COLUMNS 17
+
 /* Max brightness (0-7 scale) */
 #define TM1640_BRIGHTNESS_MAX 7
 
