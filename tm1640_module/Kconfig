@@ -1,0 +1,9 @@
+config TM1640
+	bool "TM1640 LED Matrix Display Driver"
+	default n
+	depends on GPIO
+	help
+	  Enable driver for the Titan Micro Electronics TM1640 LED matrix
+	  display controller. Uses bit-banged GPIO for the custom dual-line
+	  serial protocol (CLK + DIN). Supports 16 segments × 8 bits with
+	  8-level PWM brightness control.

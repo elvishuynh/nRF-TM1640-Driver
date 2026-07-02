@@ -1,0 +1,18 @@
+description: |
+  Titan Micro Electronics TM1640 LED Matrix Display Controller.
+  Uses a custom dual-line serial interface (CLK + DIN) driven via
+  bit-banged GPIO. Supports 16 segments × 8 bits with 8-level
+  brightness control.
+
+compatible: "titanmec,tm1640"
+
+properties:
+  din-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO pin connected to the TM1640 DIN (data input) line.
+
+  clk-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO pin connected to the TM1640 CLK (serial clock) line.

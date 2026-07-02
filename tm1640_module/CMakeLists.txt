@@ -1,0 +1,5 @@
+if(CONFIG_TM1640)
+  zephyr_library()
+  zephyr_library_sources(drivers/display/tm1640.c)
+  zephyr_include_directories(include)
+endif()

@@ -1,0 +1,16 @@
+#include "../dts/partitions.dtsi"
+
+/ {
+    chosen {
+        zephyr,code-partition = &slot0_partition;
+    };
+};
+
+/ {
+    tm1640: tm1640 {
+        compatible = "titanmec,tm1640";
+        status = "okay";
+        din-gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>; /* D0 */
+        clk-gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>; /* D1 */
+    };
+};

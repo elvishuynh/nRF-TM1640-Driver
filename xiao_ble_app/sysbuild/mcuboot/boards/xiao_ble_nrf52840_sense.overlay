@@ -1,0 +1,8 @@
+#include "../../../dts/partitions.dtsi"
+
+/ {
+    chosen {
+        /* Tell MCUboot to link itself into the boot partition */
+        zephyr,code-partition = &boot_partition;
+    };
+};
