@@ -123,6 +123,16 @@ static void tm1640_send_display_ctrl(const struct tm1640_config *cfg,
 	tm1640_stop(cfg);
 }
 
+#ifdef CONFIG_TM1640_INVERT_ROWS
+static uint8_t reverse_bits(uint8_t b)
+{
+	b = ((b & 0xF0) >> 4) | ((b & 0x0F) << 4);
+	b = ((b & 0xCC) >> 2) | ((b & 0x33) << 2);
+	b = ((b & 0xAA) >> 1) | ((b & 0x55) << 1);
+	return b;
+}
+#endif
+
 /* Driver API implementations */
 
 int tm1640_display_on(const struct device *dev)
@@ -193,12 +203,18 @@ int tm1640_write(const struct device *dev, const uint8_t *buf, size_t len)
 	tm1640_start(cfg);
 	tm1640_write_byte(cfg, TM1640_CMD_ADDR_BASE);
 
-	for (size_t i = 0; i < len; i++) {
-		tm1640_write_byte(cfg, buf[i]);
-	}
-	/* Fill remaining grids with zeros to send full 16 bytes */
-	for (size_t i = len; i < TM1640_NUM_GRIDS; i++) {
-		tm1640_write_byte(cfg, 0x00);
+	/* Write all 16 grids */
+	for (size_t i = 0; i < TM1640_NUM_GRIDS; i++) {
+#ifdef CONFIG_TM1640_REVERSE_COLUMNS
+		size_t src = TM1640_NUM_GRIDS - 1 - i;
+#else
+		size_t src = i;
+#endif
+		uint8_t byte = (src < len) ? buf[src] : 0x00;
+#ifdef CONFIG_TM1640_INVERT_ROWS
+		byte = reverse_bits(byte);
+#endif
+		tm1640_write_byte(cfg, byte);
 	}
 
 	tm1640_stop(cfg);

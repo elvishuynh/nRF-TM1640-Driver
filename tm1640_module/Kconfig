@@ -7,3 +7,17 @@ config TM1640
 	  display controller. Uses bit-banged GPIO for the custom dual-line
 	  serial protocol (CLK + DIN). Supports 16 segments × 8 bits with
 	  8-level PWM brightness control.
+
+config TM1640_INVERT_ROWS
+	bool "Invert LED matrix rows"
+	depends on TM1640
+	default n
+	help
+	  Enable this if the LED matrix is wired with SEG8 at the top.
+
+config TM1640_REVERSE_COLUMNS
+	bool "Reverse LED matrix column order"
+	depends on TM1640
+	default n
+	help
+	  Enable this if GRID1 is on the right side of the display.

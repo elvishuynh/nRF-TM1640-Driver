@@ -15,19 +15,6 @@
 
 LOG_MODULE_REGISTER(tm1640_text, CONFIG_LOG_DEFAULT_LEVEL);
 
-/* Flip if your matrix has SEG8 at the top */
-#define TM1640_FLIP_Y_AXIS 0
-
-#if TM1640_FLIP_Y_AXIS
-static uint8_t reverse_bits(uint8_t b)
-{
-	b = ((b & 0xF0) >> 4) | ((b & 0x0F) << 4);
-	b = ((b & 0xCC) >> 2) | ((b & 0x33) << 2);
-	b = ((b & 0xAA) >> 1) | ((b & 0x55) << 1);
-	return b;
-}
-#endif
-
 int tm1640_print(const struct device *dev, const char *str, int offset)
 {
 	uint8_t buffer[TM1640_NUM_GRIDS] = {0};
@@ -68,11 +55,7 @@ int tm1640_print(const struct device *dev, const char *str, int offset)
 			if (idx < 0 || idx >= TM1640_NUM_GRIDS) {
 				continue;
 			}
-#if TM1640_FLIP_Y_AXIS
-			buffer[idx] = reverse_bits(glyph[j]);
-#else
 			buffer[idx] = glyph[j];
-#endif
 		}
 	}
 
