@@ -35,7 +35,7 @@ int main(void)
 	LOG_INF("TM1640 scroll demo started");
 
 	tm1640_clear(dev);
-	tm1640_set_brightness(dev, TM1640_BRIGHTNESS_MAX);
+	tm1640_set_brightness(dev, 1);
 	tm1640_display_on(dev);
 
 	while (1) {
